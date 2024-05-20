@@ -29,19 +29,23 @@ public class Quiz {
         this.correctAnswer = correctAnswer;
         this.incorrectAnswers = incorrectAnswers;
     }
+
     /**
      * Gets the type of the question (e.g., multiple choice, true/false).
      *
      * @return The type of the question as a string.
      */
+
     public String getType() {
         return type;
     }
+
     /**
      * Gets the optional category of the question (new requirement).
      *
      * @return The category of the question as a string, or null if not specified.
      */
+
     public String getCategory() {
         return category;
     }

@@ -6,13 +6,11 @@ import java.io.*;
  */
 
 public class ErrorLogger_Quiz {
-
     /**
      * Writes an error message to the "errors.log" file.
      *
      * @param message The error message to be logged.
      */
-
     public void error(String message) {
         try {
             // Create a File object representing the error log file

@@ -232,6 +232,33 @@ public class Player {
     }
 
     /**
+     * Gets the available categories of quizzes and puts them in a list
+     * @return The list of categories
+     */
+
+    public List<QuizCategories> getCategories() {
+        List<QuizCategories> categories = new ArrayList<>();
+        Connection c = DB_Connection.getConnection();
+        String query = "SELECT * FROM quiz_categories";
+        try {
+            PreparedStatement st = c.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                int category_id = rs.getInt("category_id");
+                String category_name = rs.getString("category_name");
+                String api_trivia = rs.getString("api_trivia");
+
+                QuizCategories aCategory = new QuizCategories(category_id, category_name, api_trivia);
+                categories.add(aCategory);
+            }
+        } catch (SQLException e) {
+            errorLogger.error(new Date() + "," + getClass().getSimpleName() + ", " + e.getMessage());
+            System.out.println("\nError: loading categories");
+        }
+        return categories;
+    }
+
+    /**
      * Associates the player object with a Game object. In result, it will allow the player to access game data
      * (the score).
      * while also update the player's score within the Game object.

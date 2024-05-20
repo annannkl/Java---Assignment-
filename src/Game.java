@@ -1,13 +1,21 @@
 import java.util.List;
 
 public class Game {
+    // Stores the user-selected category for the quiz
+    private String selectedCategory;
+
+    // Reference to a ColoredUI class for color codes
     private ColoredUI coloredUI;
+
     // A list to store the quizzes for the current game session
     private List<Quiz> quizList;
+
     // A reference to the Player object associated with the current game session
     private Player player;
+
     // The current score accumulated by the player during the game session
     private int gameScore;
+
     // An index variable used to track the current position within the quiz list
     private int current;
 
@@ -25,12 +33,22 @@ public class Game {
         // Create an API_Trivia object to interact with the trivia API
         API_Trivia api = new API_Trivia();
         // Retrieve a list of quizzes from the trivia API
-        quizList = api.apiReader();
+        quizList = api.apiReader(selectedCategory);
         // Reset the game score to zero for the new game session
         gameScore = 0;
         // Set the current question index to zero
         current = 0;
         coloredUI = new ColoredUI();
+    }
+
+    /**
+     * Gets the url value of the player's selected category
+     * @param categories The List of categories
+     * @param choice The player's choice
+     */
+
+    public void selectCategory(List<QuizCategories> categories, int choice) {
+        selectedCategory = categories.get(choice - 1).getApi_trivia();
     }
 
     /**

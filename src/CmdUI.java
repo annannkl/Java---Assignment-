@@ -1,7 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class CmdUI {
-    // Reference to a ColoredUI class for color codes (if applicable)
+
+    // Reference to a ColoredUI class for color codes
     private ColoredUI coloredUI;
 
     // Scanner object for user input
@@ -74,6 +76,27 @@ public class CmdUI {
         int choice = scanner.nextInt();
         scanner.nextLine();
         return choice;
+    }
+
+    /**
+     * Displays the available categories and asks the player
+     * to choose, it then calls the selectCategory method from
+     * player class providing with the list of categories and
+     * the player's choice
+     */
+
+    public void DemonstrateCategory() {
+        System.out.println(coloredUI.getMagenta() + "-------------------------------------------------------------");
+        List<QuizCategories> categories = player.getCategories();
+        for (QuizCategories aCategory : categories) {
+            System.out.println(aCategory.getCategory_id() + ") " + aCategory.getCategory_name());
+        }
+        System.out.print(coloredUI.getRESET());
+        System.out.println(coloredUI.getCyan() + "-------------------------------------------------------------");
+        System.out.print("Select: " + coloredUI.getRESET());
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        game.selectCategory(categories, choice);
     }
 
     /**
@@ -158,6 +181,7 @@ public class CmdUI {
                             System.out.print(coloredUI.getRESET());
                             switch (option1) {
                                 case 1:
+                                    DemonstrateCategory();
                                     String response;
                                     do {
                                         game.startGame();

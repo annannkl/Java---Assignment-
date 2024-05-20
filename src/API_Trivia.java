@@ -19,20 +19,28 @@ public class API_Trivia {
         coloredUI = new ColoredUI();
         errorLogger = new ErrorLogger_Quiz();
     }
+
     /**
      * Fetches a list of quiz questions from the Open Trivia API, optionally filtering by category.
      * @return A list of Quiz objects containing question details.
+     * @throws MalformedURLException  If the API URL is invalid.
+     * @throws IOException           If there's an issue reading from the URL.
+     * @throws ParseException        If there's an error parsing the JSON response.
      */
 
-    public List<Quiz> apiReader() {
+    public List<Quiz> apiReader(String category) {
         List<Quiz> quizList = new ArrayList<>(); // Initialize an empty list to store quizzes
         try {
             // Construct the URL to fetch 10 trivia questions ( by modifying "amount" for a different number)
-            URL url = new URL("https://opentdb.com/api.php?amount=10");
+            URL url = new URL("https://opentdb.com/api.php?amount=10" + category);
 
             // Opening a stream to read data from the URL
             InputStreamReader isr = new InputStreamReader(url.openStream());
+
+            // Create a JSON parser object
             JSONParser JP = new JSONParser();
+
+            // Parse the JSON data from the stream and store it in a JSONObject
             JSONObject JO = (JSONObject) JP.parse(isr);
 
             // Extract the "results" array containing individual quiz objects
